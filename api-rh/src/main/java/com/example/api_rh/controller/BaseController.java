@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.api_rh.model.Pessoa;
 import com.example.api_rh.service.BaseService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+@CrossOrigin(origins = "*")
 public abstract class BaseController<TModel extends Pessoa> {
 
     protected final BaseService<TModel> service;
