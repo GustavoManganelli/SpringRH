@@ -22,7 +22,7 @@ export const funcionarioService = {
   update(id: number, data: FuncionarioFormData): Promise<Funcionario> {
     const payload = {
       ...data,
-      id,
+      id: undefined,
       salario: data.salario ?? 0,
       dataAdmissao: data.dataAdmissao || new Date().toISOString(),
     };

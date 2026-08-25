@@ -51,13 +51,19 @@ export const candidatoService = {
     }
 
     const updated: CandidatoFormData = {
-      ...current,
+      nome: current.nome,
+      email: current.email,
+      telefone: current.telefone,
       cargo: data.cargo || current.cargo,
+      departamentoVaga: current.departamentoVaga,
+      cidade: current.cidade,
       status: data.status || current.status,
       pretencaoSalarial:
         data.pretencaoSalarial !== undefined
           ? data.pretencaoSalarial
           : current.pretencaoSalarial,
+      dataInscricao: current.dataInscricao,
+      dataEntrevista: current.dataEntrevista,
     };
     return this.update(id, updated);
   },

@@ -145,9 +145,10 @@ export const CandidatosPage: React.FC = () => {
       setCandidatos((prev) =>
         prev.map((c) => (c.id === id ? updated : c))
       );
-    } catch (err) {
+    } catch (err: unknown) {
       console.error('Erro ao atualizar dados parciais do candidato:', err);
-      alert('Erro ao atualizar candidato.');
+      const msg = err instanceof Error ? err.message : 'Erro ao atualizar candidato.';
+      alert(msg);
     }
   };
 
