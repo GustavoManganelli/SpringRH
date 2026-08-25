@@ -1,4 +1,5 @@
 import React from 'react';
+import picpayLogo from "../assets/picpay-logo.jpeg"
 
 export type PageTab = 'candidatos' | 'funcionarios';
 
@@ -15,7 +16,7 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="header-topbar">
       <div className="header-content">
         <div className="header-brand">
-          <div className="picpay-mark">P</div>
+          <div className="picpay-mark"><img src={picpayLogo} alt="PicPay Logo" /></div>
           <span className="brand-name">PicPay</span>
 
           {onTabChange && (
