@@ -39,6 +39,31 @@ A API possui documentação interativa com Swagger/OpenAPI e disponibiliza opera
 
 Não é necessário configurar um banco de dados para executar a versão atual. Os dados são mantidos apenas durante a execução da API e são perdidos quando a aplicação é reiniciada.
 
+## Executando com Docker
+
+Com o Docker Desktop em execução, na raiz do projeto execute:
+
+```bash
+docker compose up --build
+```
+
+Depois, acesse o frontend em <http://localhost:5173>, a API em <http://localhost:8080> e a documentação Swagger em <http://localhost:8080/swagger-ui/index.html>.
+
+Para encerrar os containers, use `docker compose down`.
+
+### Solução de problemas
+
+Se o comando retornar um erro semelhante a `unable to get image` ou mencionar
+`dockerDesktopLinuxEngine`, o Docker Desktop não está em execução. Abra o
+Docker Desktop, aguarde o status **Running** e execute novamente:
+
+```bash
+docker compose up --build
+```
+
+Se ele já estiver aberto, reinicie-o e confirme que está configurado para usar
+**Linux containers**.
+
 ## Executando a API
 
 No diretório raiz do projeto, execute:
