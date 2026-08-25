@@ -20,10 +20,7 @@ public abstract class BaseService<TModel extends Pessoa> {
 
     public TModel criar(TModel entidade) {
         validarEntidade(entidade);
-
-        if (entidade.getId() > 0 && repository.getModelById(entidade.getId()) != null) {
-            throw new IllegalArgumentException("Já existe um registro com o ID informado.");
-        }
+        entidade.setId(0);
 
         return repository.addModel(entidade);
     }
@@ -44,19 +41,18 @@ public abstract class BaseService<TModel extends Pessoa> {
     }
 
     public TModel atualizar(int id, TModel entidade) {
+        validarId(id);
         validarEntidade(entidade);
+        buscarPorId(id);
 
-        if (entidade.getId() <= 0) {
-            throw new IllegalArgumentException("O ID deve ser maior que zero para atualizar um registro.");
-        }
-
-        buscarPorId(entidade.getId());
+        entidade.setId(id);
         return repository.updateModel(id, entidade);
     }
 
     public TModel atualizarStatus(int id, String status) {
         validarId(id);
         validarTexto(status, "status");
+        validarStatus(status);
         buscarPorId(id);
         return repository.updateStatus(id, status);
     }
@@ -79,11 +75,23 @@ public abstract class BaseService<TModel extends Pessoa> {
         validarTexto(entidade.getCargo(), "cargo");
         validarTexto(entidade.getCidade(), "cidade");
         validarTexto(entidade.getStatus(), "status");
+        validarStatus(entidade.getStatus());
 
         if (!EMAIL_PATTERN.matcher(entidade.getEmail().trim()).matches()) {
             throw new IllegalArgumentException("O e-mail informado é inválido.");
         }
+
+        validarTelefone(entidade.getTelefone());
     }
+
+    private void validarTelefone(String telefone) {
+        String apenasDigitos = telefone.replaceAll("\\D", "");
+        if (apenasDigitos.length() < 10 || apenasDigitos.length() > 11) {
+            throw new IllegalArgumentException("O telefone deve conter 10 ou 11 dígitos (incluindo DDD).");
+        }
+    }
+
+    protected abstract void validarStatus(String status);
 
     private void validarTexto(String valor, String campo) {
         if (valor == null || valor.trim().isEmpty()) {

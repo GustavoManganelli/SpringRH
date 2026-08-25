@@ -5,11 +5,30 @@ import org.springframework.stereotype.Service;
 
 import com.example.api_rh.repository.CandidatoRepository;
 
+import java.util.Set;
+
 @Service
 public class CandidatoService extends BaseService<Candidato> {
 
+    private static final Set<String> STATUS_PERMITIDOS = Set.of(
+            "EM ANÁLISE",
+            "EM ANALISE",
+            "APROVADO",
+            "CONTRATADO",
+            "REPROVADO"
+    );
+
     public CandidatoService(CandidatoRepository repository) {
         super(repository);
+    }
+
+    @Override
+    protected void validarStatus(String status) {
+        if (status == null || !STATUS_PERMITIDOS.contains(status.trim().toUpperCase())) {
+            throw new IllegalArgumentException(
+                    "Status inválido para candidato. Permitidos: EM ANÁLISE, APROVADO, CONTRATADO, REPROVADO."
+            );
+        }
     }
 
     @Override

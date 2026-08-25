@@ -4,11 +4,27 @@ import com.example.api_rh.model.Funcionario;
 import com.example.api_rh.repository.FuncionarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class FuncionarioService extends BaseService<Funcionario> {
 
+    private static final Set<String> STATUS_PERMITIDOS = Set.of(
+            "ATIVO",
+            "INATIVO"
+    );
+
     public FuncionarioService(FuncionarioRepository repository) {
         super(repository);
+    }
+
+    @Override
+    protected void validarStatus(String status) {
+        if (status == null || !STATUS_PERMITIDOS.contains(status.trim().toUpperCase())) {
+            throw new IllegalArgumentException(
+                    "Status inválido para funcionário. Permitidos: ATIVO, INATIVO."
+            );
+        }
     }
 
     @Override

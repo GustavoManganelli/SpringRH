@@ -69,20 +69,7 @@ export const CadastrarModal: React.FC<CadastrarModalProps> = ({
       }
     >
       <form id="cadastrar-form" onSubmit={handleSubmit} className="modal-form-grid">
-        <div className="form-group">
-          <label className="form-label">ID *</label>
-          <input
-            type="number"
-            name="id"
-            className="form-input"
-            placeholder="Ex.: 025"
-            value={formData.id ?? ''}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
+        <div className="form-group full-width">
           <label className="form-label">Nome completo *</label>
           <input
             type="text"

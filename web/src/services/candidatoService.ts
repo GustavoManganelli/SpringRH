@@ -26,7 +26,7 @@ export const candidatoService = {
   async update(id: number, data: CandidatoFormData): Promise<Candidato> {
     const payload = {
       ...data,
-      id,
+      id: undefined,
       pretencaoSalarial: data.pretencaoSalarial ?? 0,
       dataInscricao: data.dataInscricao || new Date().toISOString(),
     };
